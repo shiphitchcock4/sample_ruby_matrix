@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - 1.8.7
-  - 1.9.2
+  #- 1.9.2
   - 1.9.3
   - 2.0.0-p353
   - 2.1.0
@@ -12,12 +12,20 @@ rvm:
   - jruby-head
   - ruby-head
   - ree
-env:  
-  global:
-    - FOO=FUBU
+env:
+  M1=ONE
+  M2=TWO
 
   matrix:
-    - M1=ONE
+    include:
+      - rvm: 1.9.2
+        env: M1=ONE
+    exclude:
+      - rvm: 2.1.0
+        env: M2=TWO
+      
+      
+    
 
 build:
   pre_ci:
@@ -40,8 +48,6 @@ integrations:
   hub:
     - integrationName: ship-docker
       type: docker
-      branches:
-        only:
-          - master   
+    
 
 
